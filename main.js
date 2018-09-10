@@ -25,10 +25,11 @@ app.post('/:device_token', (req, res) => {
 	pushyAPI.sendPushNotification(data, [req.params.device_token], {}, function (err, id) {
 		if (err) {
 			console.log('Fatal Error', err);
-			res.send('Fatal Error');
+			res.status(500).send('Something broke!')
 		} else {
 			console.log('Push sent successfully! (ID: ' + id + ')');
-			res.send(id);
+			res.setHeader('Content-Type', 'application/json');
+			res.send(JSON.stringify({id: id}));
 		}
 	});
 });
