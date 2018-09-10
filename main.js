@@ -8,7 +8,14 @@ const pushyAPI = new Pushy(SECRET_API_KEY);
 
 app.use(bodyParser.json());
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.post('/:device_token', (req, res) => {
+
 	const data = {
 		"amount": req.body.amount,
 		"note": req.body.note,
