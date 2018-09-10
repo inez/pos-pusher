@@ -9,11 +9,11 @@ const pushyAPI = new Pushy(SECRET_API_KEY);
 app.use(bodyParser.json());
 
 app.post('/:device_token', (req, res) => {
-	console.log(req.body);
-	res.send('Hello World!');
-	/*
-	var data = {
-		amount_cents: parseInt(req.params.amount_cents)
+	const data = {
+		"amount": req.body.amount,
+		"note": req.body.note,
+		"firebase_token": req.body.firebase_token,
+		"api_client_id": "kjsdjkhvkzxcjhjvzzxcv"
 	};
 	pushyAPI.sendPushNotification(data, [req.params.device_token], {}, function (err, id) {
 		if (err) {
@@ -24,7 +24,5 @@ app.post('/:device_token', (req, res) => {
 			res.send(id);
 		}
 	});
-	*/
 });
 app.listen(port, () => console.log('Example app listening on port ' + port + '!'))
-
