@@ -5,7 +5,10 @@ const app = express();
 const Pushy = require('pushy');
 const pushyAPI = new Pushy(SECRET_API_KEY);
 
-app.get('/sendRequest/:device_token/:amount_cents', (req, res) => {
+app.post('/:device_token', (req, res) => {
+	console.log(req);
+	res.send('Hello World!');
+	/*
 	var data = {
 		amount_cents: parseInt(req.params.amount_cents)
 	};
@@ -18,6 +21,7 @@ app.get('/sendRequest/:device_token/:amount_cents', (req, res) => {
 			res.send(id);
 		}
 	});
+	*/
 });
 app.listen(port, () => console.log('Example app listening on port ' + port + '!'))
 
