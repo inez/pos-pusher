@@ -6,7 +6,7 @@ const Pushy = require('pushy');
 const pushyAPI = new Pushy(SECRET_API_KEY);
 
 app.post('/:device_token', (req, res) => {
-	console.log(req);
+	console.log(req.body);
 	res.send('Hello World!');
 	/*
 	var data = {
