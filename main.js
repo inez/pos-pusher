@@ -17,12 +17,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/sms', (req, res) => {
+app.post('/sms', (req, res) => {
 	const client = new twilio(TWILIO_SID, TWILIO_AUTH_TOKEN);
 	client.messages
 		.create({
-	   	body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
-      to: '+14155687800',
+	   	body: req.body.text,
+      to: req.body.to,
       from: '+13164444424'
 	 })
 	.then(message => {
