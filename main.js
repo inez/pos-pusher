@@ -26,10 +26,10 @@ app.get('/sms', (req, res) => {
       from: '+13164444424'
 	 })
 	.then(message => {
+    console.log(message.sid)
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({sid: message.sid}));
   })
-	.done();
 });
 
 app.post('/push/:device_token', (req, res) => {
