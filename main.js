@@ -1,10 +1,13 @@
 const SECRET_API_KEY = process.env.SECRET_API_KEY;
+const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
+const TWILIO_SID = 'AC5540eacb75d9668617f65961396cb677';
 const port = process.env.PORT || 5000
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const Pushy = require('pushy');
 const pushyAPI = new Pushy(SECRET_API_KEY);
+const twilio = require('twilio');
 
 app.use(bodyParser.json());
 
@@ -14,7 +17,21 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.post('/:device_token', (req, res) => {
+app.post('/sms', (req, res) => {
+	const client = new twilio(TWILIO_SID, TWILIO_AUTH_TOKEN);
+	client.messages
+		.create({
+	   	body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+      to: '+14155687800'
+	 })
+	.then(message => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({sid: message.sid}));
+  })
+	.done();
+});
+
+app.post('/push/:device_token', (req, res) => {
 
 	const data = {
 		"amount": req.body.amount,
